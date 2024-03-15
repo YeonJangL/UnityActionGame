@@ -22,7 +22,7 @@ public class EnemyHealth : MonoBehaviour
     // 슬라임의 상태를 구분해 상황에 맞는 효과를 슬라임에게 전달하는 역할
     bool isDead;
     bool isSinking;
-    bool damaged;
+    bool damaged;   
     #endregion
 
     void Awake()
@@ -115,6 +115,7 @@ public class EnemyHealth : MonoBehaviour
     void Death()
     {
         isDead = true;
+        StageController.instance.AddPoint(10);
 
         transform.GetChild(0).GetComponent<BoxCollider>().isTrigger = true;
 
@@ -133,6 +134,8 @@ public class EnemyHealth : MonoBehaviour
 
         // 외부에서 가해지는 물리적인 힘에 반응하지 않음
         GetComponent<Rigidbody>().isKinematic = true;
+
+        isSinking = true;
 
         Destroy(gameObject, 2.0f);
     }
