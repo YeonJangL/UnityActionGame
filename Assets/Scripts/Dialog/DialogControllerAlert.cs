@@ -33,6 +33,9 @@ public class DialogControllerAlert : DialogController
     public override void Awake()
     {
         base.Awake();
+        // 인스턴스를 통해 Alert 타입의 컨트롤러를 다루고 있음을 등록
+        DialogManager.Instance.Regist(DialogType.Alert, this);
+
     }
 
     public override void Build(DialogData data)
@@ -57,7 +60,5 @@ public class DialogControllerAlert : DialogController
     public override void Start()
     {
         base.Start();
-        // 인스턴스를 통해 Alert 타입의 컨트롤러를 다루고 있음을 등록
-        DialogManager.Instance.Regist(DialogType.Alert, this);
     }
 }

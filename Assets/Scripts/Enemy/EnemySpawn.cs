@@ -25,10 +25,10 @@ public class EnemySpawn : MonoBehaviour
             return;
 
         int spawnPointIndex1 = Random.Range(0, spawnPoints.Length);
-        int spawnPointIndex2 = Random.Range(0, spawnPoints.Length);
+        //int spawnPointIndex2 = Random.Range(0, spawnPoints.Length);
 
         // 두 가지 다른 스폰 지점에서 각각 다른 적을 생성합니다.
         Instantiate(enemy1, spawnPoints[spawnPointIndex1].position, spawnPoints[spawnPointIndex1].rotation);
-        Instantiate(enemy2, spawnPoints[spawnPointIndex2].position, spawnPoints[spawnPointIndex2].rotation);
+        //Instantiate(enemy2, spawnPoints[spawnPointIndex2].position, spawnPoints[spawnPointIndex2].rotation);
     }
 }

@@ -1,50 +1,42 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// ÀÏ¹İ ÆË¾÷ Ã¢°ú È®ÀÎ ÆË¾÷ Ã¢ °ü¸®ÇÏ´Â DialogControllerAlert, DialogControllerConfirmÀÇ ºÎ¸ğ Å¬·¡½º
+//ì¼ë°˜ íŒì—… ì°½ê³¼ í™•ì¸ íŒì—… ì°½ì„ ê´€ë¦¬í•˜ëŠ” DialogControllerAlert, DialogControllerConfirmì˜ ë¶€ëª¨ í´ë˜ìŠ¤
 public class DialogController : MonoBehaviour
 {
-    // ÆË¾÷ Ã¢ÀÇ Æ®·£½ºÆû
+    //íŒì—… ì°½ì˜ íŠ¸ëœìŠ¤í¼
     public Transform window;
-
-    // ÆË¾÷Ã¢ÀÌ º¸ÀÌ´ÂÁö Á¶È¸ÇÏ´Â ±â´É, º¸ÀÌÁö ¾Ê°Ô ¼³Á¤ÇÏ±â À§ÇÑ ¼Ó¼º
+    //íŒì—… ì°½ì´ ë³´ì´ëŠ”ì§€ ì¡°íšŒí•˜ëŠ” ê¸°ëŠ¥ , ë³´ì´ì§€ ì•Šê²Œ ì„¤ì •í•˜ê¸° ìœ„í•œ ì†ì„±
     public bool Visible
     {
         get
         {
-            // ÇØ´ç ¿ÀºêÁ§Æ®°¡  È°¼ºÈ­µÇ¾îÀÖ´ÂÁö ¾Æ´ÑÁö¸¦ ÆÇ´ÜÇÏ´Â ÀĞ±â Àü¿ë °ª activeSelf
             return window.gameObject.activeSelf;
+            //í•´ë‹¹ ì˜¤ë¸Œì íŠ¸ê°€ í™œì„±í™”ë˜ì–´ìˆëŠ”ì§€ ì•„ë‹Œì§€ë¥¼ íŒë‹¨í•˜ëŠ” ì½ê¸° ì „ìš© ê°’ activeSelf
         }
 
         private set
         {
             window.gameObject.SetActive(value);
-            // visible ÀÇ °á°ú¿¡ µû¶ó È°¼ºÈ­¸¦ Ã³¸®ÇÏ´Â ÄÚµå
-            // ¿ÜºÎ¿¡¼­ °£¼· ÇÒ ¼ö ¾ø´Ù.
+            //Visibleì˜ ê²°ê³¼ì— ë”°ë¼ í™œì„±í™”ë¥¼ ì²˜ë¦¬í•˜ëŠ” ì½”ë“œ
+            //ì™¸ë¶€ì—ì„œ ê°„ì„­í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.
         }
     }
 
-    // °¡»ó ÇÔ¼ö : ÀÚ½Ä ÂÊ¿¡¼­ ¿À¹ö¶óÀÌµù ÇÒ °ÍÀÌ ¿¹»ó µÉ °æ¿ì ÀÛ¼ºµÇ´Â Å°¿öµå
+    //ê°€ìƒ í•¨ìˆ˜ : ìì‹ ìª½ì—ì„œ ì˜¤ë²„ë¼ì´ë”© í•  ê²ƒì´ ì˜ˆìƒë  ê²½ìš° ì‘ì„±ë˜ëŠ” í‚¤ì›Œë“œ 
     public virtual void Awake() { }
 
     public virtual void Start() { }
 
     public virtual void Build(DialogData data) { }
 
-    // ÆË¾÷ÀÌ È­¸é¿¡ ³ªÅ¸³¯¶§ È£ÃâÇÒ ÇÔ¼ö
-    public void Show(Action callback)
-    {
-        StartCoroutine(OnEnter(callback));
-    }
-
-    // ÆË¾÷ÀÌ È­¸é¿¡¼­ »ç¶óÁú ¶§ È£ÃâÇÒ ÇÔ¼ö
-    public void Close(Action callback)
-    {
-        StartCoroutine(OnExit(callback));
-    }
-
+    //íŒì—…ì´ í™”ë©´ì— ë‚˜íƒ€ë‚  ë•Œ í˜¸ì¶œí•  í•¨ìˆ˜
+    public void Show(Action callback) => StartCoroutine(OnEnter(callback));
+    //íŒì—…ì´ í™”ë©´ì—ì„œ ì‚¬ë¼ì§ˆ ë•Œ í˜¸ì¶œí•  í•¨ìˆ˜
+    public void Close(Action callback) => StartCoroutine(OnExit(callback));
+    //ì „ë‹¬ë°›ì€ ê¸°ëŠ¥ì„ ì‹¤í–‰í•˜ì„¸ìš”.
     IEnumerator OnEnter(Action callback)
     {
         Visible = true;
@@ -53,17 +45,16 @@ public class DialogController : MonoBehaviour
         {
             callback();
         }
-        yield break; // ÀÛ¾÷ Á¾·á
+        yield break; //ì‘ì—… ì¢…ë£Œ
     }
 
     IEnumerator OnExit(Action callback)
     {
         Visible = false;
-
         if (callback != null)
         {
             callback();
         }
-        yield break; // ÀÛ¾÷ Á¾·á
+        yield break; //ì‘ì—… ì¢…ë£Œ
     }
 }

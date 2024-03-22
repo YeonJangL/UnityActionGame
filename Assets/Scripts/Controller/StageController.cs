@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,7 +17,7 @@ public class StageController : MonoBehaviour
     public Text PointText;
 
     // 스테이지 컨트롤러의 인스턴스를 저장하는 static 변수
-    public static StageController instance;
+    public static StageController Instance;
 
     // 다른 코드 내에서 StageController.instance.AddPoint(10)과 같은 형태로 사용 가능
     // 따로 연결해서 쓸 필요가 없기 때문에 편리함
@@ -24,12 +25,13 @@ public class StageController : MonoBehaviour
     // 2024 - 03 - 15 Awake -> Start
     private void Start()
     {
-        instance = this;
+        Instance = this;
+        DialogDataAlert alert = new DialogDataAlert("START", "Game Start!",
+            delegate ()
+            {
+                Debug.Log("OK Pressed!");
 
-        // 안내창 값 설정
-        var alert = new DialogDataAlert("게임 시작", "슬라임이랑 지렁이를 사냥하세요", delegate () { Debug.Log("OK 누름"); });
-
-        // 매니저에 등록
+            });
         DialogManager.Instance.Push(alert);
     }
 
@@ -42,6 +44,15 @@ public class StageController : MonoBehaviour
     public void FinishGame()
     {
         // Application.LoadLevel(Application.loadedLevel); 구 버전 코드(현재는 사용 안함)
-        SceneManager.LoadScene("Game");
+        DialogDataConfirm confirm = new DialogDataConfirm("Restart?", "Please press OK if you want to restart the game.",
+           delegate (bool yn)
+           {
+               if (yn)
+                   SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+               else
+                   Application.Quit();
+           });
+
+        DialogManager.Instance.Push(confirm);
     }
 }

@@ -66,17 +66,17 @@ public class PlayerHealth : MonoBehaviour
 
     void Death()
     {
-        StageController.instance.FinishGame();
+        StageController.Instance.FinishGame();
         isDead = true;
         anim.SetTrigger("Die");
         playerMovement.enabled = false;
 
-        // 죽음 텍스트 화면에 표시
+        /*// 죽음 텍스트 화면에 표시
         if (DeathText != null)
         {
             DeathText.gameObject.SetActive(true);
             DeathText.text = "You Died";
-        }
+        }*/
     }
 
     private void Update()
