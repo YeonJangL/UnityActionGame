@@ -22,7 +22,7 @@ public class DialogControllerConfirm : DialogController
     {
         base.Start();
 
-        DialogManager.Instance.Regist(DialogType.Confirm, this);
+        DialogManager.Instance.Regist(DialogManager.DialogType.Confirm, this);
     }
 
     public override void Build(DialogData data)

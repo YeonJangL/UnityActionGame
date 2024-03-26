@@ -21,7 +21,7 @@ public class DialogDataAlert : DialogData
 
     //base(DialogType.Alert)
 
-    public DialogDataAlert(string title, string message, Action callback = null) : base(DialogType.Alert)
+    public DialogDataAlert(string title, string message, Action callback = null) : base(DialogManager.DialogType.Alert)
     {
         Title = title;
         Message = message;

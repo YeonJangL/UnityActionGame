@@ -34,7 +34,7 @@ public class DialogControllerAlert : DialogController
     {
         base.Awake();
         // 인스턴스를 통해 Alert 타입의 컨트롤러를 다루고 있음을 등록
-        DialogManager.Instance.Regist(DialogType.Alert, this);
+        DialogManager.Instance.Regist(DialogManager.DialogType.Alert, this);
 
     }
 

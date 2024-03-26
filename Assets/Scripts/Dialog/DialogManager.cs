@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum DialogType { Alert, Confirm, Ranking }
 public sealed class DialogManager
 {
+   // 2024-03-26 순서 수정
+    public enum DialogType { Alert, Confirm, Ranking }
+
     #region Fields
     List<DialogData> _dialogQueue;
     Dictionary<DialogType, DialogController> _dialogMap;
